@@ -33,6 +33,7 @@ The top-level API should include the following constructors:
 - Constructors
   - `fail`
   - `success`
+- Lookahead (?)
 
 `map` and `chain` can be represented by a generic `then`, which mirrors a similar API in Promises.
 
@@ -83,3 +84,22 @@ parse(
   'Ed 29'
 )
 ```
+
+### Idea: Functional API without `pipe` with variadic functions
+
+What if the API allows passing extra arguments to all parsers?
+
+```js
+parse(
+  seq([
+      take(/[a-z]+/),
+      skip(/\s+/),
+      take(/\d+/, Number.parseInt)
+    ],
+    ([name, age]) => ({ name, age })
+  ),
+  'Ed 29'
+)
+```
+
+This is okay for replacing `.chain` and `.map`, but how to allow modifying errors?
