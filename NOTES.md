@@ -30,6 +30,9 @@ The top-level API should include the following constructors:
   - `map` for transforming the results emitted by parsers
   - `chain` for conditional parsing dependent on the result from previous parser
   - `mapError` for transforming the error emitted by a parser
+- Constructors
+  - `fail`
+  - `success`
 
 `map` and `chain` can be represented by a generic `then`, which mirrors a similar API in Promises.
 
@@ -46,4 +49,37 @@ seq`
   + let
   - \s
 `
+```
+
+### Idea: Functional API vs OO API
+
+Functional API needs `pipe` helper for composition:
+
+```js
+parse(
+  pipe(
+    seq(
+      take(/[a-z]+/),
+      skip(/\s+/),
+      pipe(
+        take(/\d+/),
+        map(Number.parseInt)
+      )
+    ),
+    map(([name, age]) => ({ name, age }))
+  )
+)('Ed 29')
+```
+
+Object-Oriented API provides seemingly better readability:
+
+```js
+parse(
+  seq(
+    take(/[a-z]+/),
+    skip(/\s+/),
+    take(/\d+/).map(Number.parseInt)
+  ).map(([name, age]) => ({ name, age })),
+  'Ed 29'
+)
 ```
