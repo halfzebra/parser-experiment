@@ -103,3 +103,7 @@ parse(
 ```
 
 This is okay for replacing `.chain` and `.map`, but how to allow modifying errors?
+
+## Links
+
+- [sufianrhazi/parsinator](https://github.com/sufianrhazi/parsinator) has an interesting example of using a generator for creating parsers.
