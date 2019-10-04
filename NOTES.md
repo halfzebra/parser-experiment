@@ -104,6 +104,13 @@ parse(
 
 This is okay for replacing `.chain` and `.map`, but how to allow modifying errors?
 
+## Idea: Error Tracing
+
+It seems like it will be useful to track the parsers path to produce a meaningful error on failure.
+
+This would require generating a tree of parser history.
+
 ## Links
 
 - [sufianrhazi/parsinator](https://github.com/sufianrhazi/parsinator) has an interesting example of using a generator for creating parsers.
+- [jneen/parsimmon](https://github.com/jneen/parsimmon) is probably the best existing library with parsers.
