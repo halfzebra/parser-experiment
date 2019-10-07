@@ -1,16 +1,16 @@
 {
   "name": "parser-experiment",
-  "version": "1.0.0",
-  "description": "",
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
     "test:ci": "jest --ci"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Eduard Kyvenko <eduard.kyvenko@gmail.com>",
   "devDependencies": {
     "jest": "^24.9.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
