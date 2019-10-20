@@ -39,7 +39,17 @@ The top-level API should include the following constructors:
 
 `catch` would replace `mapError`, but in Promises `catch` enables a recovery from error state, so maybe this is not the best option.
 
-So maybe it could look like that:
+### Parsers
+
+I was a bit uncertain about the parser implementation, but it seems like it's worth to support edge-cases like skipping sequence.
+
+Therefore `take` and `skip` are not the parsers, but rather parser creators, which make parsers, that emit the value or succeed silently.
+
+Instead of those there should be:
+
+- `string` parser produced by `take('hello')`
+- `regex` parser produced by `take(/[a-z]/)`
+- `fn` parser, which is an advanced use-case for creating new parsers.
 
 ### Idea: String literal-based DSL
 
@@ -104,11 +114,13 @@ parse(
 
 This is okay for replacing `.chain` and `.map`, but how to allow modifying errors?
 
-## Idea: Error Tracing
+### Idea: Error Tracing
 
 It seems like it will be useful to track the parsers path to produce a meaningful error on failure.
 
 This would require generating a tree of parser history.
+
+*Update:* Error tracing turned out an interesting idea to work on, so I've implemented the support for it. Now I'll look into a way to support the visualisation of it.
 
 ## Links
 
