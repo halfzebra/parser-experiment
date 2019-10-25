@@ -192,7 +192,7 @@ The simple UI might function in a similar way to [regex101.com](https://regex101
 
 ## Links
 
-- [jneen/parsimmon](https://github.com/jneen/parsimmon) is probably the best existing library with parsers.
+- [jneen/parsimmon](https://github.com/jneen/parsimmon) is probably the best JavaScript library with parsers.
 - [sufianrhazi/parsinator](https://github.com/sufianrhazi/parsinator) has an interesting example of using a generator for creating parsers.
-- [elm/parser](https://github.com/elm/parser) one of the best API designs.
+- [elm/parser](https://github.com/elm/parser) one of the best APIs for parsers written in Elm.
 - [dmy/elm-pratt-parser](https://github.com/dmy/elm-pratt-parser) Pratt Parser implementation.
