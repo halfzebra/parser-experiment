@@ -6,6 +6,7 @@
 - [API design](#api-design)
   * [Parsers](#parsers)
   * [Parser creators `take` and `skip`](#parser-creators-take-and-skip)
+  * [Regexp parser](#regexp-parser)
 - [Ideas](#ideas)
   * [String literal-based DSL](#string-literal-based-dsl)
   * [Functional API vs OO API](#functional-api-vs-oo-api)
@@ -88,6 +89,18 @@ function isStringEmpty(str) {
 ```
 
 RegExp needs to be converted to the one that matches the beginning of the string. Parsimmon has a helpful concept for this called [Anchored RegExp](https://github.com/jneen/parsimmon/blob/74a6345c9a0f3fce733b5712547b9dd3d0680f6f/src/parsimmon.js#L669).
+
+
+### Regexp parser
+
+There are a few acceptance criterias for this parser that I want to have:
+
+- Should not require line start token `^`
+- Should allow only limited amount of flags(see [parsimmon](https://github.com/jneen/parsimmon/blob/74a6345c9a0f3fce733b5712547b9dd3d0680f6f/src/parsimmon.js#L433) for details)
+
+```js
+take(/[a-z]/)
+```
 
 ## Ideas
 
