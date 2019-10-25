@@ -122,7 +122,29 @@ This would require generating a tree of parser history.
 
 *Update:* Error tracing turned out an interesting idea to work on, so I've implemented the support for it. Now I'll look into a way to support the visualisation of it.
 
+### Parser creators `take` and `skip`
+
+Both creators should allow working with RegExp and String.
+
+This will require a set of helpers to enable the creator to check inputs. 
+
+```js
+function isRegExp(exp) {
+  return exp instanceof RegExp;
+}
+
+function isString(exp) {
+  return typeof exp === 'string'
+}
+
+function isStringEmpty(str) {
+  return str.length !== 0;
+}
+```
+
+RegExp needs to be converted to the one that matches the beginning of the string. Parsimmon has a helpful concept for this called [Anchored RegExp](https://github.com/jneen/parsimmon/blob/74a6345c9a0f3fce733b5712547b9dd3d0680f6f/src/parsimmon.js#L669).
+
 ## Links
 
-- [sufianrhazi/parsinator](https://github.com/sufianrhazi/parsinator) has an interesting example of using a generator for creating parsers.
 - [jneen/parsimmon](https://github.com/jneen/parsimmon) is probably the best existing library with parsers.
+- [sufianrhazi/parsinator](https://github.com/sufianrhazi/parsinator) has an interesting example of using a generator for creating parsers.
