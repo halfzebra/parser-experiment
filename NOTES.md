@@ -19,9 +19,15 @@
 
 ## Goals
 
-Provide a [parser combinator](https://en.wikipedia.org/wiki/Parser_combinator) library with a minimal and intuitive API surface and user-friendly error-handling.
+Provide a [parser combinator](https://en.wikipedia.org/wiki/Parser_combinator) library with a minimal and intuitive API surface and the user-friendly errors for the best educational experience for learning the basics of AST parsing.
 
-Include a built-in implementation of Pratt algorithm.
+Include a built-in implementation of [Pratt parser](https://en.wikipedia.org/wiki/Pratt_parser).
+
+This library is not attempting to:
+
+- Implement a parser with the best possible performance
+- Create an adaptaion of [parsec](http://hackage.haskell.org/package/parsec) in JavaScript
+- Implement the [fantasyland](https://github.com/fantasyland/fantasy-land) spec
 
 ## API design
 
@@ -51,6 +57,7 @@ The top-level API should include the following constructors:
   - `fail`
   - `success`
 - Lookahead (?)
+- Built-in Pratt Parser
 
 `map` and `chain` can be represented by a generic `then`, which mirrors a similar API in Promises.
 
@@ -187,3 +194,5 @@ The simple UI might function in a similar way to [regex101.com](https://regex101
 
 - [jneen/parsimmon](https://github.com/jneen/parsimmon) is probably the best existing library with parsers.
 - [sufianrhazi/parsinator](https://github.com/sufianrhazi/parsinator) has an interesting example of using a generator for creating parsers.
+- [elm/parser](https://github.com/elm/parser) one of the best API designs.
+- [dmy/elm-pratt-parser](https://github.com/dmy/elm-pratt-parser) Pratt Parser implementation.
