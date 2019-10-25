@@ -11,6 +11,7 @@
   * [Functional API vs OO API](#functional-api-vs-oo-api)
   * [Functional API without `pipe` with variadic functions](#functional-api-without-pipe-with-variadic-functions)
   * [Error Tracing](#error-tracing)
+  * [UI](#ui)
 - [Links](#links)
 
 <!-- tocstop -->
@@ -160,6 +161,12 @@ It seems like it will be useful to track the parsers path to produce a meaningfu
 This would require generating a tree of parser history.
 
 *Update:* Error tracing turned out an interesting idea to work on, so I've implemented the support for it. Now I'll look into a way to support the visualisation of it.
+
+### UI
+
+The goal of this project is to provide the maximum transparency on what parser matches every specific part of a string.
+
+The simple UI might function in a similar way to [regex101.com](https://regex101.com).
 
 ## Links
 
