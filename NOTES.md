@@ -181,6 +181,8 @@ The goal of this project is to provide the maximum transparency on what parser m
 
 The simple UI might function in a similar way to [regex101.com](https://regex101.com).
 
+[CodeMirror](https://github.com/codemirror/CodeMirror) might be a good suit for the task.
+
 ## Links
 
 - [jneen/parsimmon](https://github.com/jneen/parsimmon) is probably the best existing library with parsers.
