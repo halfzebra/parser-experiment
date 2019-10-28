@@ -13,6 +13,7 @@
   * [Functional API without `pipe` with variadic functions](#functional-api-without-pipe-with-variadic-functions)
   * [Error Tracing](#error-tracing)
   * [UI](#ui)
+    + [CodeMirror](#codemirror)
 - [Links](#links)
 
 <!-- tocstop -->
@@ -192,6 +193,12 @@ The simple UI might function in a similar way to [regex101.com](https://regex101
 
 [Prism.js](https://prismjs.com/) does not look liek a viable choice due to the lack of the API for manipulating the DOM of the editor.
 
+Playground examples:
+
+- [sap/chevrotain](https://github.com/sap/chevrotain) Parser Building Toolkit for JavaScript with an amazing interactive [playground](https://sap.github.io/chevrotain/).
+- [pegjs](https://pegjs.org/) another parser library with interactive playground.
+
+
 #### CodeMirror
 
 After looking into CodeMirror capabilities, I've found the APIs for manipulating code hightlightning.
@@ -231,5 +238,3 @@ doc.markText(
 - [sufianrhazi/parsinator](https://github.com/sufianrhazi/parsinator) has an interesting example of using a generator for creating parsers.
 - [elm/parser](https://github.com/elm/parser) one of the best APIs for parsers written in Elm.
 - [dmy/elm-pratt-parser](https://github.com/dmy/elm-pratt-parser) Pratt Parser implementation.
-- [sap/chevrotain](https://github.com/sap/chevrotain) Parser Building Toolkit for JavaScript with an amazing interactive [playground](https://sap.github.io/chevrotain/).
-- [pegjs](https://pegjs.org/) another parser library with interactive playground.
