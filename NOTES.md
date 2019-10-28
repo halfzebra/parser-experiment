@@ -190,9 +190,46 @@ The simple UI might function in a similar way to [regex101.com](https://regex101
 
 [CodeMirror](https://github.com/codemirror/CodeMirror) might be a good suit for the task.
 
+[Prism.js](https://prismjs.com/) does not look liek a viable choice due to the lack of the API for manipulating the DOM of the editor.
+
+#### CodeMirror
+
+After looking into CodeMirror capabilities, I've found the APIs for manipulating code hightlightning.
+
+CodeMirror Reference:
+https://codemirror.net/doc/manual.html
+
+```js
+// cm.addOverlay
+// cm.addWidget
+
+editor.addOverlay({
+  token(stream) {
+    console.log(stream)
+    stream.skipToEnd();
+  }
+})
+
+// doc.markText
+// doc.addLineClass
+// doc.addLineWidget
+
+const doc = editor.getDoc()
+
+doc.markText(
+  { line: 0, ch: 1 },
+  { line: 0, ch: 10 },
+  {
+    className: 'booho'
+  }
+)
+```
+
 ## Links
 
 - [jneen/parsimmon](https://github.com/jneen/parsimmon) is probably the best JavaScript library with parsers.
 - [sufianrhazi/parsinator](https://github.com/sufianrhazi/parsinator) has an interesting example of using a generator for creating parsers.
 - [elm/parser](https://github.com/elm/parser) one of the best APIs for parsers written in Elm.
 - [dmy/elm-pratt-parser](https://github.com/dmy/elm-pratt-parser) Pratt Parser implementation.
+- [sap/chevrotain](https://github.com/sap/chevrotain) Parser Building Toolkit for JavaScript with an amazing interactive [playground](https://sap.github.io/chevrotain/).
+- [pegjs](https://pegjs.org/) another parser library with interactive playground.
