@@ -4,11 +4,13 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "toc": "markdown-toc -i NOTES.md"
   },
   "author": "Eduard Kyvenko <eduard.kyvenko@gmail.com>",
   "devDependencies": {
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "markdown-toc": "^1.2.0"
   },
   "jest": {
     "testEnvironment": "node"
