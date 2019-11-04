@@ -14,6 +14,7 @@
   * [Error Tracing](#error-tracing)
   * [UI](#ui)
     + [CodeMirror](#codemirror)
+  * [AST Traversal](#ast-traversal)
 - [Links](#links)
 
 <!-- tocstop -->
@@ -198,7 +199,6 @@ Playground examples:
 - [sap/chevrotain](https://github.com/sap/chevrotain) Parser Building Toolkit for JavaScript with an amazing interactive [playground](https://sap.github.io/chevrotain/).
 - [pegjs](https://pegjs.org/) another parser library with interactive playground.
 
-
 #### CodeMirror
 
 After looking into CodeMirror capabilities, I've found the APIs for manipulating code hightlightning.
@@ -231,6 +231,12 @@ doc.markText(
   }
 )
 ```
+
+### AST Traversal
+
+[substack/js-traverse](https://github.com/substack/js-traverse) could be a great help in traversing and updating the AST tree after parsing.
+
+It would be helpful to include an example of a simple compiler using it.
 
 ## Links
 
