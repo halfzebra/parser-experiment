@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest --watchAll",
     "test:ci": "jest --ci",
-    "toc": "markdown-toc -i NOTES.md"
+    "toc": "markdown-toc -i NOTES.md",
+    "build": "tsc"
   },
   "author": "Eduard Kyvenko <eduard.kyvenko@gmail.com>",
   "devDependencies": {
