@@ -8,6 +8,7 @@ import {
   seqTrace,
   mapTrace,
   run,
+  State
 } from './index';
 
 describe('take', () => {
@@ -37,7 +38,7 @@ describe('take', () => {
     it('maps the result using a function', () => {
       expect(
         run(
-          take('hello').map(x => x.toUpperCase()),
+          take('hello').map((x: string) => x.toUpperCase()),
           'hello'
         )
       ).toStrictEqual({
@@ -46,7 +47,7 @@ describe('take', () => {
         result: 'HELLO',
         success: true,
         take: true,
-        trace: mapTrace({
+        trace: mapTrace(<State>{
           trace: stringTraceConstructor('hello', true),
           success: true,
         }),
@@ -56,7 +57,7 @@ describe('take', () => {
     it('returns the failed state of the previous parser', () => {
       expect(
         run(
-          take('hello').map(x => x.toUpperCase()),
+          take('hello').map((x: string) => x.toUpperCase()),
           'bye'
         )
       ).toStrictEqual({
@@ -95,7 +96,7 @@ describe('seq', () => {
       take: true,
       result: ['a', 'b'],
       success: true,
-      trace: seqTrace({
+      trace: seqTrace(<State>{
         trace: [
           stringTraceConstructor('a', true),
           stringTraceConstructor('b', true),
@@ -111,7 +112,7 @@ describe('seq', () => {
       rest: 'c',
       result: ['a'],
       success: false,
-      trace: seqTrace({
+      trace: seqTrace(<State>{
         trace: [
           stringTraceConstructor('a', true),
           stringTraceConstructor('b', true),
@@ -122,7 +123,7 @@ describe('seq', () => {
 
   describe('seqTrace', () => {
     it('produces a trace for a sequence', () => {
-      expect(seqTrace({ trace: null })).toStrictEqual({
+      expect(seqTrace(<State>{ trace: null })).toStrictEqual({
         kind: 'seq',
         trace: null,
         take: true,

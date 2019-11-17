@@ -13,7 +13,7 @@
 // [ ] error mapper
 // [ ] alt
 
-interface State {
+export interface State {
   take: boolean;
   input: string;
   index: number;
@@ -34,13 +34,7 @@ function initialState(input: string): State {
   };
 }
 
-interface Trace {
-  take: boolean;
-  kind: 'string';
-  pattern: string;
-}
-
-function stringTraceConstructor(pattern: string, take: boolean): Trace {
+function stringTraceConstructor(pattern: string, take: boolean) {
   return {
     take,
     kind: 'string',
@@ -48,17 +42,22 @@ function stringTraceConstructor(pattern: string, take: boolean): Trace {
   };
 }
 
-function location(currentState, previousState) {
+interface Location {
+  from: number;
+  to: number;
+}
+
+function location(currentState: State, previousState: State): Location {
   return { from: previousState.index, to: currentState.index };
 }
 
-function makeStringTrace(pattern) {
-  return function stringTrace(currentState, previousState) {
+function makeStringTrace(pattern: string) {
+  return function stringTrace(currentState: State, previousState: State) {
     return stringTraceConstructor(pattern, currentState.take);
   };
 }
 
-function seqTrace({ trace }) {
+function seqTrace({ trace }: State) {
   return {
     take: true,
     kind: 'seq',
@@ -66,7 +65,7 @@ function seqTrace({ trace }) {
   };
 }
 
-function altTrace({ trace }) {
+function altTrace({ trace }: State) {
   return {
     take: true,
     kind: 'alt',
@@ -74,10 +73,11 @@ function altTrace({ trace }) {
   };
 }
 
-function mapTrace({ trace, success }) {
+function mapTrace({ take, trace, success }: State) {
   // If previous parser fails, fn is not getting applied.
   if (success) {
     return {
+      take,
       kind: 'map',
       trace,
     };
@@ -85,15 +85,13 @@ function mapTrace({ trace, success }) {
   return trace;
 }
 
-interface WrappedParser {
-  parser: (state: State) => State;
-  traceConstructor: (currentState: State, previousState: State) => Trace;
-}
-
 class Wrap {
-  parser: (state: State) => State;
-  traceConstructor: (currentState: State, previousState: State) => Trace;
-  constructor(parser, traceConstructor) {
+  parser: Parser;
+  traceConstructor: (currentState: State, previousState: State) => any;
+  constructor(
+    parser: (state: State) => State,
+    traceConstructor: (currentState: State, previousState: State) => any
+  ) {
     this.parser = parser;
     this.traceConstructor = traceConstructor;
   }
@@ -106,7 +104,7 @@ class Wrap {
     };
   }
 
-  map(fn) {
+  map<A, B>(fn: (a: A) => B) {
     return new Wrap((state: State) => {
       const next = this.apply(state);
 
@@ -121,9 +119,10 @@ class Wrap {
   }
 }
 
-function makeStringParser(pattern) {
-  return function string(state) {
+function makeStringParser(pattern: string): Parser {
+  return function string(state: State) {
     const result = pattern;
+    const { input } = state;
     if (state.rest.startsWith(pattern)) {
       return {
         take: true,
@@ -131,6 +130,7 @@ function makeStringParser(pattern) {
         rest: state.rest.slice(pattern.length),
         success: true,
         result,
+        input,
       };
     } else {
       return {
@@ -139,43 +139,40 @@ function makeStringParser(pattern) {
         rest: state.rest,
         success: false,
         result: null,
+        input,
       };
     }
   };
 }
 
-function wrapTraceConstructor(kind, traceConstructor) {
-  return function take(...args) {
-    return {
-      kind,
-      ...traceConstructor(...args),
-    };
-  };
-}
-
-function take(pattern) {
+function take(pattern: string) {
   return new Wrap(makeStringParser(pattern), makeStringTrace(pattern));
 }
 
-function log(exp) {
+function log<T>(exp: T): T {
   console.log(exp);
   return exp;
 }
 
-function pipe(...fns) {
-  return arg => fns.reduce((accRes, currFn) => currFn(accRes), arg);
+type Parser = (state: State) => State;
+
+function pipe(...fns: any): any {
+  return (arg: any) => fns.reduce((accRes: any, currFn: any) => currFn(accRes), arg);
 }
 
-const makeSkippingParser = ({ take, ...rest }: State): State => ({ take: false, ...rest });
+const makeSkippingParser = ({ take, ...rest }: State): State => ({
+  take: false,
+  ...rest,
+});
 
-function skip(pattern) {
+function skip(pattern: string) {
   return new Wrap(
     pipe(makeStringParser(pattern), makeSkippingParser),
     makeStringTrace(pattern)
   );
 }
 
-function alt(...parsers) {
+function alt(...parsers: Wrap[]) {
   return new Wrap(function alt(state) {
     let { length } = parsers;
     let result = null;
@@ -199,7 +196,7 @@ function alt(...parsers) {
   }, altTrace);
 }
 
-function seq(...parsers) {
+function seq(...parsers: Wrap[]) {
   return new Wrap(function seq(state) {
     let { length } = parsers;
     let next = state;
@@ -225,7 +222,7 @@ function seq(...parsers) {
   }, seqTrace);
 }
 
-function run(parser, input: string) {
+function run(parser: Wrap, input: string) {
   return parser.apply(initialState(input));
 }
 

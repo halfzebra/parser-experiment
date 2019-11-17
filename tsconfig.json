@@ -2,8 +2,9 @@
   "compilerOptions": {
     "outDir": "./dist",
     "allowJs": true,
-    "target": "es5",
-    "noImplicitAny": true
+    "target": "es2015",
+    "noImplicitAny": true,
+    "moduleResolution": "node"
   },
   "include": [
     "./lib/**/*"
